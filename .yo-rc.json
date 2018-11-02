@@ -1,0 +1,38 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "ar.edu.um.isa",
+      "nativeLanguage": "es"
+    },
+    "jhipsterVersion": "5.3.1",
+    "applicationType": "monolith",
+    "baseName": "microbloggingISA",
+    "packageName": "ar.edu.um.isa",
+    "packageFolder": "ar/edu/um/isa",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTExOTEzZGJlNWFiMzJmZjBmOWRjNTEzMjY1MDg4YTdiNDYxNWZkZTBmNGIxZGMwMmE4MDM0M2I2MzIzMTI0YWUwYzBmOTNiOWUxNTZjZDc0NjE1YjVlMDI4OWI2ODhkMTM3YjJkZjE5YTkzOWVlNmE2NDM2MmQzMzhmNDRmZDQ=",
+    "clientFramework": "angularX",
+    "useSass": false,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "es",
+      "en"
+    ]
+  }
+}
