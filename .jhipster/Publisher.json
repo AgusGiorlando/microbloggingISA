@@ -1,0 +1,66 @@
+{
+    "name": "Publisher",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "is",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "publisher"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "publication",
+            "otherEntityName": "publication",
+            "otherEntityRelationshipName": "publisher"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "mention",
+            "relationshipName": "mentionedBy",
+            "otherEntityName": "publication",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "follow",
+            "relationshipName": "followedBy",
+            "otherEntityName": "publisher",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "fav",
+            "otherEntityName": "publication",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "favedBy"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "like",
+            "otherEntityName": "publication",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "likedBy"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "follow",
+            "otherEntityName": "publisher",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "followedBy"
+        }
+    ],
+    "changelogDate": "20181103235927",
+    "entityTableName": "publisher",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

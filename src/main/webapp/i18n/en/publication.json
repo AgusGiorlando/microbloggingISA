@@ -1,0 +1,32 @@
+
+{
+    "microbloggingIsaApp": {
+        "publication" : {
+            "home": {
+                "title": "Publications",
+                "createLabel": "Create a new Publication",
+                "createOrEditLabel": "Create or edit a Publication"
+            },
+            "created": "A new Publication is created with identifier {{ param }}",
+            "updated": "A Publication is updated with identifier {{ param }}",
+            "deleted": "A Publication is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Publication {{ id }}?"
+            },
+            "detail": {
+                "title": "Publication"
+            },
+            "date": "Date",
+            "content": "Content",
+            "visible": "Visible",
+            "country": "Country",
+            "city": "City",
+            "republishedBy": "Republished By",
+            "favedBy": "Faved By",
+            "likedBy": "Liked By",
+            "taggedBy": "Tagged By",
+            "publisher": "Publisher",
+            "mention": "Mention"
+        }
+    }
+}
