@@ -10,12 +10,12 @@ export interface IPublication {
     visible?: boolean;
     country?: string;
     city?: string;
-    republishedBy?: IPublication;
+    republish?: IPublication;
+    mentions?: IPublisher[];
     favedBies?: IPublisher[];
     likedBies?: IPublisher[];
-    taggedBies?: ITag[];
+    tags?: ITag[];
     publisher?: IPublisher;
-    mentions?: IPublisher[];
 }
 
 export class Publication implements IPublication {
@@ -26,12 +26,12 @@ export class Publication implements IPublication {
         public visible?: boolean,
         public country?: string,
         public city?: string,
-        public republishedBy?: IPublication,
+        public republish?: IPublication,
+        public mentions?: IPublisher[],
         public favedBies?: IPublisher[],
         public likedBies?: IPublisher[],
-        public taggedBies?: ITag[],
-        public publisher?: IPublisher,
-        public mentions?: IPublisher[]
+        public tags?: ITag[],
+        public publisher?: IPublisher
     ) {
         this.visible = this.visible || false;
     }

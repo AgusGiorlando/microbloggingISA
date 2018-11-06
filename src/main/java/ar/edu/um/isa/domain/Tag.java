@@ -29,9 +29,9 @@ public class Tag implements Serializable {
     @Column(name = "last_use")
     private LocalDate lastUse;
 
-    @ManyToMany(mappedBy = "taggedBies")
+    @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    private Set<Publication> tags = new HashSet<>();
+    private Set<Publication> publications = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -68,29 +68,29 @@ public class Tag implements Serializable {
         this.lastUse = lastUse;
     }
 
-    public Set<Publication> getTags() {
-        return tags;
+    public Set<Publication> getPublications() {
+        return publications;
     }
 
-    public Tag tags(Set<Publication> publications) {
-        this.tags = publications;
+    public Tag publications(Set<Publication> publications) {
+        this.publications = publications;
         return this;
     }
 
-    public Tag addTag(Publication publication) {
-        this.tags.add(publication);
-        publication.getTaggedBies().add(this);
+    public Tag addPublication(Publication publication) {
+        this.publications.add(publication);
+        publication.getTags().add(this);
         return this;
     }
 
-    public Tag removeTag(Publication publication) {
-        this.tags.remove(publication);
-        publication.getTaggedBies().remove(this);
+    public Tag removePublication(Publication publication) {
+        this.publications.remove(publication);
+        publication.getTags().remove(this);
         return this;
     }
 
-    public void setTags(Set<Publication> publications) {
-        this.tags = publications;
+    public void setPublications(Set<Publication> publications) {
+        this.publications = publications;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

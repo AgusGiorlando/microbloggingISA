@@ -16,13 +16,11 @@
             "detail": {
                 "title": "Publisher"
             },
-            "is": "Is",
+            "user": "User",
             "publication": "Publication",
-            "mentionedBy": "Mentioned By",
-            "followedBy": "Followed By",
-            "fav": "Fav",
-            "like": "Like",
-            "follow": "Follow"
+            "follow": "Follow",
+            "favourite": "Favourite",
+            "follower": "Follower"
         }
     }
 }

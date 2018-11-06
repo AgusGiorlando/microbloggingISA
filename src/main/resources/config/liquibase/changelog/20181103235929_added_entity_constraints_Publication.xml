@@ -8,12 +8,23 @@
     -->
     <changeSet id="20181103235929-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="republished_by_id"
+        <addForeignKeyConstraint baseColumnNames="republish_id"
                                  baseTableName="publication"
-                                 constraintName="fk_publication_republished_by_id"
+                                 constraintName="fk_publication_republish_id"
                                  referencedColumnNames="id"
                                  referencedTableName="publication"/>
 
+        <addForeignKeyConstraint baseColumnNames="publications_id"
+                                 baseTableName="publication_mention"
+                                 constraintName="fk_publication_mention_publications_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="publication"/>
+        <addForeignKeyConstraint baseColumnNames="mentions_id"
+                                 baseTableName="publication_mention"
+                                 constraintName="fk_publication_mention_mentions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="publisher"/>
+        
         <addForeignKeyConstraint baseColumnNames="publications_id"
                                  baseTableName="publication_faved_by"
                                  constraintName="fk_publication_faved_by_publications_id"
@@ -37,13 +48,13 @@
                                  referencedTableName="publisher"/>
         
         <addForeignKeyConstraint baseColumnNames="publications_id"
-                                 baseTableName="publication_tagged_by"
-                                 constraintName="fk_publication_tagged_by_publications_id"
+                                 baseTableName="publication_tag"
+                                 constraintName="fk_publication_tag_publications_id"
                                  referencedColumnNames="id"
                                  referencedTableName="publication"/>
-        <addForeignKeyConstraint baseColumnNames="tagged_bies_id"
-                                 baseTableName="publication_tagged_by"
-                                 constraintName="fk_publication_tagged_by_tagged_bies_id"
+        <addForeignKeyConstraint baseColumnNames="tags_id"
+                                 baseTableName="publication_tag"
+                                 constraintName="fk_publication_tag_tags_id"
                                  referencedColumnNames="id"
                                  referencedTableName="tag"/>
         

@@ -17,14 +17,14 @@ import java.util.Optional;
 @Repository
 public interface PublicationRepository extends JpaRepository<Publication, Long> {
 
-    @Query(value = "select distinct publication from Publication publication left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.taggedBies",
+    @Query(value = "select distinct publication from Publication publication left join fetch publication.mentions left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.tags",
         countQuery = "select count(distinct publication) from Publication publication")
     Page<Publication> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(value = "select distinct publication from Publication publication left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.taggedBies")
+    @Query(value = "select distinct publication from Publication publication left join fetch publication.mentions left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.tags")
     List<Publication> findAllWithEagerRelationships();
 
-    @Query("select publication from Publication publication left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.taggedBies where publication.id =:id")
+    @Query("select publication from Publication publication left join fetch publication.mentions left join fetch publication.favedBies left join fetch publication.likedBies left join fetch publication.tags where publication.id =:id")
     Optional<Publication> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

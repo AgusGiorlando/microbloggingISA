@@ -18,7 +18,7 @@
             },
             "name": "Name",
             "lastUse": "Last Use",
-            "tag": "Tag"
+            "publication": "Publication"
         }
     }
 }

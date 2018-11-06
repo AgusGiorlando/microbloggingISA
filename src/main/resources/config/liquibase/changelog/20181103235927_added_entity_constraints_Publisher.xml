@@ -8,31 +8,20 @@
     -->
     <changeSet id="20181103235927-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="is_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="publisher"
-                                 constraintName="fk_publisher_is_id"
+                                 constraintName="fk_publisher_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
         <addForeignKeyConstraint baseColumnNames="publishers_id"
-                                 baseTableName="publisher_mentioned_by"
-                                 constraintName="fk_publisher_mentioned_by_publishers_id"
+                                 baseTableName="publisher_follow"
+                                 constraintName="fk_publisher_follow_publishers_id"
                                  referencedColumnNames="id"
                                  referencedTableName="publisher"/>
-        <addForeignKeyConstraint baseColumnNames="mentioned_bies_id"
-                                 baseTableName="publisher_mentioned_by"
-                                 constraintName="fk_publisher_mentioned_by_mentioned_bies_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="publication"/>
-        
-        <addForeignKeyConstraint baseColumnNames="publishers_id"
-                                 baseTableName="publisher_followed_by"
-                                 constraintName="fk_publisher_followed_by_publishers_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="publisher"/>
-        <addForeignKeyConstraint baseColumnNames="followed_bies_id"
-                                 baseTableName="publisher_followed_by"
-                                 constraintName="fk_publisher_followed_by_followed_bies_id"
+        <addForeignKeyConstraint baseColumnNames="follows_id"
+                                 baseTableName="publisher_follow"
+                                 constraintName="fk_publisher_follow_follows_id"
                                  referencedColumnNames="id"
                                  referencedTableName="publisher"/>
         

@@ -17,14 +17,14 @@ import java.util.Optional;
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Long> {
 
-    @Query(value = "select distinct publisher from Publisher publisher left join fetch publisher.mentionedBies left join fetch publisher.followedBies",
+    @Query(value = "select distinct publisher from Publisher publisher left join fetch publisher.follows",
         countQuery = "select count(distinct publisher) from Publisher publisher")
     Page<Publisher> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(value = "select distinct publisher from Publisher publisher left join fetch publisher.mentionedBies left join fetch publisher.followedBies")
+    @Query(value = "select distinct publisher from Publisher publisher left join fetch publisher.follows")
     List<Publisher> findAllWithEagerRelationships();
 
-    @Query("select publisher from Publisher publisher left join fetch publisher.mentionedBies left join fetch publisher.followedBies where publisher.id =:id")
+    @Query("select publisher from Publisher publisher left join fetch publisher.follows where publisher.id =:id")
     Optional<Publisher> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

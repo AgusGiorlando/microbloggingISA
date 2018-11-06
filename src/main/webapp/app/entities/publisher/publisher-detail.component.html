@@ -5,20 +5,14 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="microbloggingIsaApp.publisher.is">Is</span></dt>
+                <dt><span jhiTranslate="microbloggingIsaApp.publisher.user">User</span></dt>
                 <dd>
-                    {{publisher.is?.id}}
+                    {{publisher.user?.id}}
                 </dd>
-                <dt><span jhiTranslate="microbloggingIsaApp.publisher.mentionedBy">Mentioned By</span></dt>
+                <dt><span jhiTranslate="microbloggingIsaApp.publisher.follow">Follow</span></dt>
                 <dd>
-                    <span *ngFor="let mentionedBy of publisher.mentionedBies; let last = last">
-                        <a [routerLink]="['/publication', mentionedBy?.id, 'view' ]">{{mentionedBy.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="microbloggingIsaApp.publisher.followedBy">Followed By</span></dt>
-                <dd>
-                    <span *ngFor="let followedBy of publisher.followedBies; let last = last">
-                        <a [routerLink]="['/publisher', followedBy?.id, 'view' ]">{{followedBy.id}}</a>{{last ? '' : ', '}}
+                    <span *ngFor="let follow of publisher.follows; let last = last">
+                        <a [routerLink]="['/publisher', follow?.id, 'view' ]">{{follow.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

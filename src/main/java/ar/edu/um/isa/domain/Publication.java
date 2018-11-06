@@ -1,6 +1,5 @@
 package ar.edu.um.isa.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -41,7 +40,13 @@ public class Publication implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Publication republishedBy;
+    private Publication republish;
+
+    @ManyToMany
+    @JoinTable(name = "publication_mention",
+               joinColumns = @JoinColumn(name = "publications_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "mentions_id", referencedColumnName = "id"))
+    private Set<Publisher> mentions = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "publication_faved_by",
@@ -56,18 +61,14 @@ public class Publication implements Serializable {
     private Set<Publisher> likedBies = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "publication_tagged_by",
+    @JoinTable(name = "publication_tag",
                joinColumns = @JoinColumn(name = "publications_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "tagged_bies_id", referencedColumnName = "id"))
-    private Set<Tag> taggedBies = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name = "tags_id", referencedColumnName = "id"))
+    private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("publications")
     private Publisher publisher;
-
-    @ManyToMany(mappedBy = "mentionedBies")
-    @JsonIgnore
-    private Set<Publisher> mentions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -143,17 +144,40 @@ public class Publication implements Serializable {
         this.city = city;
     }
 
-    public Publication getRepublishedBy() {
-        return republishedBy;
+    public Publication getRepublish() {
+        return republish;
     }
 
-    public Publication republishedBy(Publication publication) {
-        this.republishedBy = publication;
+    public Publication republish(Publication publication) {
+        this.republish = publication;
         return this;
     }
 
-    public void setRepublishedBy(Publication publication) {
-        this.republishedBy = publication;
+    public void setRepublish(Publication publication) {
+        this.republish = publication;
+    }
+
+    public Set<Publisher> getMentions() {
+        return mentions;
+    }
+
+    public Publication mentions(Set<Publisher> publishers) {
+        this.mentions = publishers;
+        return this;
+    }
+
+    public Publication addMention(Publisher publisher) {
+        this.mentions.add(publisher);
+        return this;
+    }
+
+    public Publication removeMention(Publisher publisher) {
+        this.mentions.remove(publisher);
+        return this;
+    }
+
+    public void setMentions(Set<Publisher> publishers) {
+        this.mentions = publishers;
     }
 
     public Set<Publisher> getFavedBies() {
@@ -167,13 +191,13 @@ public class Publication implements Serializable {
 
     public Publication addFavedBy(Publisher publisher) {
         this.favedBies.add(publisher);
-        publisher.getFavs().add(this);
+        publisher.getFavourites().add(this);
         return this;
     }
 
     public Publication removeFavedBy(Publisher publisher) {
         this.favedBies.remove(publisher);
-        publisher.getFavs().remove(this);
+        publisher.getFavourites().remove(this);
         return this;
     }
 
@@ -192,13 +216,11 @@ public class Publication implements Serializable {
 
     public Publication addLikedBy(Publisher publisher) {
         this.likedBies.add(publisher);
-        publisher.getLikes().add(this);
         return this;
     }
 
     public Publication removeLikedBy(Publisher publisher) {
         this.likedBies.remove(publisher);
-        publisher.getLikes().remove(this);
         return this;
     }
 
@@ -206,29 +228,29 @@ public class Publication implements Serializable {
         this.likedBies = publishers;
     }
 
-    public Set<Tag> getTaggedBies() {
-        return taggedBies;
+    public Set<Tag> getTags() {
+        return tags;
     }
 
-    public Publication taggedBies(Set<Tag> tags) {
-        this.taggedBies = tags;
+    public Publication tags(Set<Tag> tags) {
+        this.tags = tags;
         return this;
     }
 
-    public Publication addTaggedBy(Tag tag) {
-        this.taggedBies.add(tag);
-        tag.getTags().add(this);
+    public Publication addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getPublications().add(this);
         return this;
     }
 
-    public Publication removeTaggedBy(Tag tag) {
-        this.taggedBies.remove(tag);
-        tag.getTags().remove(this);
+    public Publication removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.getPublications().remove(this);
         return this;
     }
 
-    public void setTaggedBies(Set<Tag> tags) {
-        this.taggedBies = tags;
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public Publisher getPublisher() {
@@ -242,31 +264,6 @@ public class Publication implements Serializable {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
-    }
-
-    public Set<Publisher> getMentions() {
-        return mentions;
-    }
-
-    public Publication mentions(Set<Publisher> publishers) {
-        this.mentions = publishers;
-        return this;
-    }
-
-    public Publication addMention(Publisher publisher) {
-        this.mentions.add(publisher);
-        publisher.getMentionedBies().add(this);
-        return this;
-    }
-
-    public Publication removeMention(Publisher publisher) {
-        this.mentions.remove(publisher);
-        publisher.getMentionedBies().remove(this);
-        return this;
-    }
-
-    public void setMentions(Set<Publisher> publishers) {
-        this.mentions = publishers;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

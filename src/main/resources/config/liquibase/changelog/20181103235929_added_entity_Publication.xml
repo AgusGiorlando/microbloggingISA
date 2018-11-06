@@ -41,8 +41,8 @@
             <column name="city" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="republished_by_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_publication_republished_by_id" />
+            <column name="republish_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_publication_republish_id" />
             </column>
             <column name="publisher_id" type="bigint">
                 <constraints nullable="true" />
@@ -50,6 +50,17 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="publication_mention">
+            <column name="mentions_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publications_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="publications_id, mentions_id" tableName="publication_mention"/>
         
         <createTable tableName="publication_faved_by">
             <column name="faved_bies_id" type="bigint">
@@ -73,8 +84,8 @@
 
         <addPrimaryKey columnNames="publications_id, liked_bies_id" tableName="publication_liked_by"/>
         
-        <createTable tableName="publication_tagged_by">
-            <column name="tagged_bies_id" type="bigint">
+        <createTable tableName="publication_tag">
+            <column name="tags_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="publications_id" type="bigint">
@@ -82,7 +93,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="publications_id, tagged_bies_id" tableName="publication_tagged_by"/>
+        <addPrimaryKey columnNames="publications_id, tags_id" tableName="publication_tag"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

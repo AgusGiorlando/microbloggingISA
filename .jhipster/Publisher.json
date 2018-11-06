@@ -4,7 +4,7 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "is",
+            "relationshipName": "user",
             "otherEntityName": "user",
             "otherEntityField": "id",
             "ownerSide": true,
@@ -18,40 +18,25 @@
         },
         {
             "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "mention",
-            "relationshipName": "mentionedBy",
-            "otherEntityName": "publication",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "follow",
-            "relationshipName": "followedBy",
+            "otherEntityRelationshipName": "follower",
+            "relationshipName": "follow",
             "otherEntityName": "publisher",
             "otherEntityField": "id",
             "ownerSide": true
         },
         {
             "relationshipType": "many-to-many",
-            "relationshipName": "fav",
+            "relationshipName": "favourite",
             "otherEntityName": "publication",
             "ownerSide": false,
             "otherEntityRelationshipName": "favedBy"
         },
         {
             "relationshipType": "many-to-many",
-            "relationshipName": "like",
-            "otherEntityName": "publication",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "likedBy"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "relationshipName": "follow",
+            "relationshipName": "follower",
             "otherEntityName": "publisher",
             "ownerSide": false,
-            "otherEntityRelationshipName": "followedBy"
+            "otherEntityRelationshipName": "follow"
         }
     ],
     "changelogDate": "20181103235927",

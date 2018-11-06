@@ -16,11 +16,11 @@ entity Publication {
 }
 
 relationship ManyToMany {
-	Publisher{mentionedBy} to Publication{mention}
-	Publication{favedBy} to Publisher{fav}
-	Publication{likedBy} to Publisher{like}
-	Publisher{followedBy} to Publisher{follow}
-	Publication{taggedBy} to Tag{tag}
+	Publication{mention} to Publisher
+	Publication{favedBy} to Publisher{favourite}
+	Publication{likedBy} to Publisher
+	Publisher{follow} to Publisher{follower}
+	Publication{tag} to Tag{publication}
 }
 
 
@@ -29,6 +29,6 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
-	Publisher{is} to User
-	Publication{republishedBy} to Publication
+	Publisher to User
+	Publication{republish} to Publication
 }

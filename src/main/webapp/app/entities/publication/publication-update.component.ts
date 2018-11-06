@@ -19,7 +19,7 @@ export class PublicationUpdateComponent implements OnInit {
     private _publication: IPublication;
     isSaving: boolean;
 
-    republishedbies: IPublication[];
+    republishes: IPublication[];
 
     publishers: IPublisher[];
 
@@ -41,12 +41,12 @@ export class PublicationUpdateComponent implements OnInit {
         });
         this.publicationService.query({ filter: 'publication-is-null' }).subscribe(
             (res: HttpResponse<IPublication[]>) => {
-                if (!this.publication.republishedBy || !this.publication.republishedBy.id) {
-                    this.republishedbies = res.body;
+                if (!this.publication.republish || !this.publication.republish.id) {
+                    this.republishes = res.body;
                 } else {
-                    this.publicationService.find(this.publication.republishedBy.id).subscribe(
+                    this.publicationService.find(this.publication.republish.id).subscribe(
                         (subRes: HttpResponse<IPublication>) => {
-                            this.republishedbies = [subRes.body].concat(res.body);
+                            this.republishes = [subRes.body].concat(res.body);
                         },
                         (subRes: HttpErrorResponse) => this.onError(subRes.message)
                     );

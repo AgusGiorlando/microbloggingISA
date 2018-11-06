@@ -5,9 +5,9 @@ export interface ITag {
     id?: number;
     name?: string;
     lastUse?: Moment;
-    tags?: IPublication[];
+    publications?: IPublication[];
 }
 
 export class Tag implements ITag {
-    constructor(public id?: number, public name?: string, public lastUse?: Moment, public tags?: IPublication[]) {}
+    constructor(public id?: number, public name?: string, public lastUse?: Moment, public publications?: IPublication[]) {}
 }

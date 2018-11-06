@@ -4,24 +4,20 @@ import { IPublisher } from 'app/shared/model//publisher.model';
 
 export interface IPublisher {
     id?: number;
-    is?: IUser;
+    user?: IUser;
     publications?: IPublication[];
-    mentionedBies?: IPublication[];
-    followedBies?: IPublisher[];
-    favs?: IPublication[];
-    likes?: IPublication[];
     follows?: IPublisher[];
+    favourites?: IPublication[];
+    followers?: IPublisher[];
 }
 
 export class Publisher implements IPublisher {
     constructor(
         public id?: number,
-        public is?: IUser,
+        public user?: IUser,
         public publications?: IPublication[],
-        public mentionedBies?: IPublication[],
-        public followedBies?: IPublisher[],
-        public favs?: IPublication[],
-        public likes?: IPublication[],
-        public follows?: IPublisher[]
+        public follows?: IPublisher[],
+        public favourites?: IPublication[],
+        public followers?: IPublisher[]
     ) {}
 }

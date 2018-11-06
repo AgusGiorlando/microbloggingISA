@@ -11,22 +11,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="microbloggingIsaApp.publisher.is" for="field_is">Is</label>
-                    <select class="form-control" id="field_is" name="is" [(ngModel)]="publisher.is" >
+                    <label class="form-control-label" jhiTranslate="microbloggingIsaApp.publisher.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="publisher.user" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === publisher.is?.id ? publisher.is : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                        <option [ngValue]="userOption.id === publisher.user?.id ? publisher.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label jhiTranslate="microbloggingIsaApp.publisher.mentionedBy" for="field_mentionedBy">Mentioned By</label>
-                    <select class="form-control" id="field_mentionedBy" multiple name="mentionedBy" [(ngModel)]="publisher.mentionedBies">
-                        <option [ngValue]="getSelected(publisher.mentionedBies, publicationOption)" *ngFor="let publicationOption of publications; trackBy: trackPublicationById">{{publicationOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="microbloggingIsaApp.publisher.followedBy" for="field_followedBy">Followed By</label>
-                    <select class="form-control" id="field_followedBy" multiple name="followedBy" [(ngModel)]="publisher.followedBies">
-                        <option [ngValue]="getSelected(publisher.followedBies, publisherOption)" *ngFor="let publisherOption of publishers; trackBy: trackPublisherById">{{publisherOption.id}}</option>
+                    <label jhiTranslate="microbloggingIsaApp.publisher.follow" for="field_follow">Follow</label>
+                    <select class="form-control" id="field_follow" multiple name="follow" [(ngModel)]="publisher.follows">
+                        <option [ngValue]="getSelected(publisher.follows, publisherOption)" *ngFor="let publisherOption of publishers; trackBy: trackPublisherById">{{publisherOption.id}}</option>
                     </select>
                 </div>
             </div>

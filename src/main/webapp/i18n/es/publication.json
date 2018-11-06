@@ -21,12 +21,12 @@
             "visible": "Visible",
             "country": "Country",
             "city": "City",
-            "republishedBy": "Republished By",
+            "republish": "Republish",
+            "mention": "Mention",
             "favedBy": "Faved By",
             "likedBy": "Liked By",
-            "taggedBy": "Tagged By",
-            "publisher": "Publisher",
-            "mention": "Mention"
+            "tag": "Tag",
+            "publisher": "Publisher"
         }
     }
 }

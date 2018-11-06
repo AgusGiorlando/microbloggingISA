@@ -41,10 +41,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="microbloggingIsaApp.publication.republishedBy" for="field_republishedBy">Republished By</label>
-                    <select class="form-control" id="field_republishedBy" name="republishedBy" [(ngModel)]="publication.republishedBy">
+                    <label class="form-control-label" jhiTranslate="microbloggingIsaApp.publication.republish" for="field_republish">Republish</label>
+                    <select class="form-control" id="field_republish" name="republish" [(ngModel)]="publication.republish">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="publicationOption.id === publication.republishedBy?.id ? publication.republishedBy : publicationOption" *ngFor="let publicationOption of republishedbies; trackBy: trackPublicationById">{{publicationOption.id}}</option>
+                        <option [ngValue]="publicationOption.id === publication.republish?.id ? publication.republish : publicationOption" *ngFor="let publicationOption of republishes; trackBy: trackPublicationById">{{publicationOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="microbloggingIsaApp.publication.mention" for="field_mention">Mention</label>
+                    <select class="form-control" id="field_mention" multiple name="mention" [(ngModel)]="publication.mentions">
+                        <option [ngValue]="getSelected(publication.mentions, publisherOption)" *ngFor="let publisherOption of publishers; trackBy: trackPublisherById">{{publisherOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -60,9 +66,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label jhiTranslate="microbloggingIsaApp.publication.taggedBy" for="field_taggedBy">Tagged By</label>
-                    <select class="form-control" id="field_taggedBy" multiple name="taggedBy" [(ngModel)]="publication.taggedBies">
-                        <option [ngValue]="getSelected(publication.taggedBies, tagOption)" *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.id}}</option>
+                    <label jhiTranslate="microbloggingIsaApp.publication.tag" for="field_tag">Tag</label>
+                    <select class="form-control" id="field_tag" multiple name="tag" [(ngModel)]="publication.tags">
+                        <option [ngValue]="getSelected(publication.tags, tagOption)" *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">

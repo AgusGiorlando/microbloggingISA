@@ -24,34 +24,24 @@ public class Publisher implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private User is;
+    private User user;
 
     @OneToMany(mappedBy = "publisher")
     private Set<Publication> publications = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "publisher_mentioned_by",
+    @JoinTable(name = "publisher_follow",
                joinColumns = @JoinColumn(name = "publishers_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "mentioned_bies_id", referencedColumnName = "id"))
-    private Set<Publication> mentionedBies = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "publisher_followed_by",
-               joinColumns = @JoinColumn(name = "publishers_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "followed_bies_id", referencedColumnName = "id"))
-    private Set<Publisher> followedBies = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name = "follows_id", referencedColumnName = "id"))
+    private Set<Publisher> follows = new HashSet<>();
 
     @ManyToMany(mappedBy = "favedBies")
     @JsonIgnore
-    private Set<Publication> favs = new HashSet<>();
+    private Set<Publication> favourites = new HashSet<>();
 
-    @ManyToMany(mappedBy = "likedBies")
+    @ManyToMany(mappedBy = "follows")
     @JsonIgnore
-    private Set<Publication> likes = new HashSet<>();
-
-    @ManyToMany(mappedBy = "followedBies")
-    @JsonIgnore
-    private Set<Publisher> follows = new HashSet<>();
+    private Set<Publisher> followers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -62,17 +52,17 @@ public class Publisher implements Serializable {
         this.id = id;
     }
 
-    public User getIs() {
-        return is;
+    public User getUser() {
+        return user;
     }
 
-    public Publisher is(User user) {
-        this.is = user;
+    public Publisher user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setIs(User user) {
-        this.is = user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Publication> getPublications() {
@@ -100,106 +90,6 @@ public class Publisher implements Serializable {
         this.publications = publications;
     }
 
-    public Set<Publication> getMentionedBies() {
-        return mentionedBies;
-    }
-
-    public Publisher mentionedBies(Set<Publication> publications) {
-        this.mentionedBies = publications;
-        return this;
-    }
-
-    public Publisher addMentionedBy(Publication publication) {
-        this.mentionedBies.add(publication);
-        publication.getMentions().add(this);
-        return this;
-    }
-
-    public Publisher removeMentionedBy(Publication publication) {
-        this.mentionedBies.remove(publication);
-        publication.getMentions().remove(this);
-        return this;
-    }
-
-    public void setMentionedBies(Set<Publication> publications) {
-        this.mentionedBies = publications;
-    }
-
-    public Set<Publisher> getFollowedBies() {
-        return followedBies;
-    }
-
-    public Publisher followedBies(Set<Publisher> publishers) {
-        this.followedBies = publishers;
-        return this;
-    }
-
-    public Publisher addFollowedBy(Publisher publisher) {
-        this.followedBies.add(publisher);
-        publisher.getFollows().add(this);
-        return this;
-    }
-
-    public Publisher removeFollowedBy(Publisher publisher) {
-        this.followedBies.remove(publisher);
-        publisher.getFollows().remove(this);
-        return this;
-    }
-
-    public void setFollowedBies(Set<Publisher> publishers) {
-        this.followedBies = publishers;
-    }
-
-    public Set<Publication> getFavs() {
-        return favs;
-    }
-
-    public Publisher favs(Set<Publication> publications) {
-        this.favs = publications;
-        return this;
-    }
-
-    public Publisher addFav(Publication publication) {
-        this.favs.add(publication);
-        publication.getFavedBies().add(this);
-        return this;
-    }
-
-    public Publisher removeFav(Publication publication) {
-        this.favs.remove(publication);
-        publication.getFavedBies().remove(this);
-        return this;
-    }
-
-    public void setFavs(Set<Publication> publications) {
-        this.favs = publications;
-    }
-
-    public Set<Publication> getLikes() {
-        return likes;
-    }
-
-    public Publisher likes(Set<Publication> publications) {
-        this.likes = publications;
-        return this;
-    }
-
-    public Publisher addLike(Publication publication) {
-        this.likes.add(publication);
-        publication.getLikedBies().add(this);
-        return this;
-    }
-
-    public Publisher removeLike(Publication publication) {
-        this.likes.remove(publication);
-        publication.getLikedBies().remove(this);
-        return this;
-    }
-
-    public void setLikes(Set<Publication> publications) {
-        this.likes = publications;
-    }
-
     public Set<Publisher> getFollows() {
         return follows;
     }
@@ -211,18 +101,68 @@ public class Publisher implements Serializable {
 
     public Publisher addFollow(Publisher publisher) {
         this.follows.add(publisher);
-        publisher.getFollowedBies().add(this);
+        publisher.getFollowers().add(this);
         return this;
     }
 
     public Publisher removeFollow(Publisher publisher) {
         this.follows.remove(publisher);
-        publisher.getFollowedBies().remove(this);
+        publisher.getFollowers().remove(this);
         return this;
     }
 
     public void setFollows(Set<Publisher> publishers) {
         this.follows = publishers;
+    }
+
+    public Set<Publication> getFavourites() {
+        return favourites;
+    }
+
+    public Publisher favourites(Set<Publication> publications) {
+        this.favourites = publications;
+        return this;
+    }
+
+    public Publisher addFavourite(Publication publication) {
+        this.favourites.add(publication);
+        publication.getFavedBies().add(this);
+        return this;
+    }
+
+    public Publisher removeFavourite(Publication publication) {
+        this.favourites.remove(publication);
+        publication.getFavedBies().remove(this);
+        return this;
+    }
+
+    public void setFavourites(Set<Publication> publications) {
+        this.favourites = publications;
+    }
+
+    public Set<Publisher> getFollowers() {
+        return followers;
+    }
+
+    public Publisher followers(Set<Publisher> publishers) {
+        this.followers = publishers;
+        return this;
+    }
+
+    public Publisher addFollower(Publisher publisher) {
+        this.followers.add(publisher);
+        publisher.getFollows().add(this);
+        return this;
+    }
+
+    public Publisher removeFollower(Publisher publisher) {
+        this.followers.remove(publisher);
+        publisher.getFollows().remove(this);
+        return this;
+    }
+
+    public void setFollowers(Set<Publisher> publishers) {
+        this.followers = publishers;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

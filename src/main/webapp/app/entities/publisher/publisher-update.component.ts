@@ -20,9 +20,9 @@ export class PublisherUpdateComponent implements OnInit {
 
     users: IUser[];
 
-    publications: IPublication[];
-
     publishers: IPublisher[];
+
+    publications: IPublication[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -43,15 +43,15 @@ export class PublisherUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.publicationService.query().subscribe(
-            (res: HttpResponse<IPublication[]>) => {
-                this.publications = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.publisherService.query().subscribe(
             (res: HttpResponse<IPublisher[]>) => {
                 this.publishers = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.publicationService.query().subscribe(
+            (res: HttpResponse<IPublication[]>) => {
+                this.publications = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -91,11 +91,11 @@ export class PublisherUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackPublicationById(index: number, item: IPublication) {
+    trackPublisherById(index: number, item: IPublisher) {
         return item.id;
     }
 
-    trackPublisherById(index: number, item: IPublisher) {
+    trackPublicationById(index: number, item: IPublication) {
         return item.id;
     }
 
