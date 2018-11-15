@@ -1,6 +1,7 @@
 package ar.edu.um.isa.repository;
 
 import ar.edu.um.isa.domain.Publisher;
+import org.hibernate.jpamodelgen.xml.jaxb.Id;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -26,5 +27,6 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
 
     @Query("select publisher from Publisher publisher left join fetch publisher.follows where publisher.id =:id")
     Optional<Publisher> findOneWithEagerRelationships(@Param("id") Long id);
+
 
 }
