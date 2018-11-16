@@ -1,18 +1,22 @@
 package ar.edu.um.isa.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Objects;
+
+import static javax.persistence.FetchType.EAGER;
 
 /**
  * A Publisher.
  */
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
 @Table(name = "publisher")
 public class Publisher implements Serializable {
 
@@ -35,11 +39,11 @@ public class Publisher implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "follows_id", referencedColumnName = "id"))
     private Set<Publisher> follows = new HashSet<>();
 
-    @ManyToMany(mappedBy = "favedBies")
+    @ManyToMany(mappedBy = "favedBies", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Publication> favourites = new HashSet<>();
 
-    @ManyToMany(mappedBy = "follows")
+    @ManyToMany(mappedBy = "follows", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Publisher> followers = new HashSet<>();
 
