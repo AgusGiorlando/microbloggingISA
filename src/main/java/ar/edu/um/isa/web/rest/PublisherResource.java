@@ -194,7 +194,7 @@ public class PublisherResource {
      */
     @GetMapping("/publishers/{id}/followers")
     @Timed
-    public ResponseEntity<Set<Publisher>> getFollxowers(@PathVariable Long id) {
+    public ResponseEntity<Set<Publisher>> getFollowers(@PathVariable Long id) {
         log.debug("REST request to get followers : {}", id);
 
         if (publisherRepository.findById(id) == null) {
