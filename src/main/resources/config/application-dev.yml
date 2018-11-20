@@ -32,9 +32,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/microbloggingISA?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: app
-        password: app
+        url: jdbc:mysql://localhost:3306/MicrobloggingISA?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: root
         hikari:
             auto-commit: false
             data-source-properties:

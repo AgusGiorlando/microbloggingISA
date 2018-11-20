@@ -29,7 +29,7 @@ public class Tag implements Serializable {
     @Column(name = "last_use")
     private LocalDate lastUse;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Publication> publications = new HashSet<>();
 
@@ -120,6 +120,8 @@ public class Tag implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", lastUse='" + getLastUse() + "'" +
-            "}";
+            ", publications='" + getPublications() + "'" +
+            "}"
+            ;
     }
 }

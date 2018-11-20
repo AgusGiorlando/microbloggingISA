@@ -1,5 +1,9 @@
 package ar.edu.um.isa.web.rest;
 
+import ar.edu.um.isa.domain.Publisher;
+import ar.edu.um.isa.domain.Tag;
+import ar.edu.um.isa.repository.PublisherRepository;
+import ar.edu.um.isa.repository.TagRepository;
 import com.codahale.metrics.annotation.Timed;
 import ar.edu.um.isa.domain.Publication;
 import ar.edu.um.isa.repository.PublicationRepository;
@@ -8,14 +12,16 @@ import ar.edu.um.isa.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.*;
 
 /**
  * REST controller for managing Publication.
@@ -29,6 +35,11 @@ public class PublicationResource {
     private static final String ENTITY_NAME = "publication";
 
     private final PublicationRepository publicationRepository;
+
+    @Autowired
+    private PublisherRepository publisherRepository;
+    @Autowired
+    private TagRepository tagRepository;
 
     public PublicationResource(PublicationRepository publicationRepository) {
         this.publicationRepository = publicationRepository;
@@ -86,7 +97,7 @@ public class PublicationResource {
     @Timed
     public List<Publication> getAllPublications(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Publications");
-        return publicationRepository.findAllWithEagerRelationships();
+        return publicationRepository.findAll();
     }
 
     /**
@@ -117,4 +128,80 @@ public class PublicationResource {
         publicationRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    //Metodos Agregados
+//Ver la publicaciones de un usuario determinado.
+    @GetMapping("/publications/publisher/{id}")
+    @Timed
+    public List<Publication> getPublicationsByPublisher(@PathVariable Long id) {
+        log.debug("REST request to get Publication : {}", id);
+        Optional<Publisher> publisher = publisherRepository.findById(id);
+        List<Publication> publications = publicationRepository.findPublicationsByPublisher(publisher.get());
+        return publications;
+
+    }
+
+    //Ver todas las publicaciones de un tag determinado
+    @GetMapping("/publications/tag/{id}")
+    @Timed
+    public List<Publication> getPublicationsByTag(@PathVariable Long id) {
+        log.debug("REST request to get Publication : {}", id);
+        Optional<Tag> tag = tagRepository.findById(id);
+        List<Publication> publications = publicationRepository.findPublicationsByTags(tag.get());
+        return publications;
+
+    }
+
+
+    //Ver todas las publicaciones de una mencion determinada
+    @GetMapping("/publications/mentios/{id}")
+    @Timed
+    public List<Publication> getPublicationsByMentions(@PathVariable Long id) {
+        log.debug("REST request to get Publication : {}", id);
+        Optional<Publisher> publisher_mentions = publisherRepository.findById(id);
+        List<Publication> publications = publicationRepository.findPublicationsByMentions(publisher_mentions.get());
+        return publications;
+
+    }
+    //Marcar como favorito publications
+    @PutMapping("/publications/faved/{id_publications}/{id_publisher}")
+    @Timed
+    public Publication favedPublication(@PathVariable Long id_publications, @PathVariable Long id_publisher) throws URISyntaxException {
+        Optional<Publication> publication = publicationRepository.findById(id_publications);
+        Optional<Publisher> publisher = publisherRepository.findById(id_publisher);
+
+        log.debug("REST request to faved Publication : {}", publication);
+
+        if (publicationRepository.findById(id_publications) == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        publication.get().addFavedBy(publisher.get());
+
+        Publication result = publicationRepository.save(publication.get());
+        return result;
+
+
+    }
+  //Republicar
+  @PutMapping("/publications/republish/{id_publication}/{id_republish}")
+  @Timed
+  public Publication republishPublication(@PathVariable Long id_publication, @PathVariable Long id_republish) throws URISyntaxException {
+      Optional<Publication> publication = publicationRepository.findById(id_publication);
+      Optional<Publication> republish = publicationRepository.findById(id_republish);
+
+      log.debug("REST request to faved Publication : {}", publication);
+
+      if (publicationRepository.findById(id_publication) == publicationRepository.findById(id_republish)) {
+          throw new BadRequestAlertException("Publicatios is same to republish", ENTITY_NAME, "idincompatible");
+      }
+      publication.get().republish(republish.get());
+
+      Publication result = publicationRepository.save(publication.get());
+      return result;
+
+
+  }
 }
+
+
+

@@ -48,7 +48,7 @@ public class Publication implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "mentions_id", referencedColumnName = "id"))
     private Set<Publisher> mentions = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "publication_faved_by",
                joinColumns = @JoinColumn(name = "publications_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "faved_bies_id", referencedColumnName = "id"))
@@ -64,6 +64,7 @@ public class Publication implements Serializable {
     @JoinTable(name = "publication_tag",
                joinColumns = @JoinColumn(name = "publications_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "tags_id", referencedColumnName = "id"))
+
     private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne
