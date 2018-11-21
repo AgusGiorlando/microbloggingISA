@@ -33,17 +33,18 @@ public class Publisher implements Serializable {
     @OneToMany(mappedBy = "publisher")
     private Set<Publication> publications = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "publisher_follow",
                joinColumns = @JoinColumn(name = "publishers_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "follows_id", referencedColumnName = "id"))
     private Set<Publisher> follows = new HashSet<>();
 
-    @ManyToMany(mappedBy = "favedBies", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "favedBies" , fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Publication> favourites = new HashSet<>();
 
-    @ManyToMany(mappedBy = "follows", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "follows", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Publisher> followers = new HashSet<>();
 

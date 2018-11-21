@@ -171,9 +171,6 @@ public class PublisherResource {
         if (followed_id.equals(follower_id)){
             throw new UnsupportedOperationException("Cannot unfollow himself");
         }
-        else if (!follower.get().getFollows().contains(followed)){
-            throw new UnsupportedOperationException("Already followed");
-        }
 
         follower.get().removeFollow(followed.get());
         followed.get().removeFollower(follower.get());
