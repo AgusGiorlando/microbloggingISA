@@ -225,7 +225,7 @@ public class PublisherResource {
 
         Optional<Publisher> publisher = publisherRepository.findById(id);
 
-        Set<Publisher> follows = publisher.get().getFollowers();
+        Set<Publisher> follows = publisher.get().getFollows();
 
         return ResponseEntity.ok(follows);
     }

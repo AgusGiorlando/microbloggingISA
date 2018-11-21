@@ -6,13 +6,12 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A Publication.
  */
+
 @Entity
 @Table(name = "publication")
 public class Publication implements Serializable {
@@ -268,18 +267,48 @@ public class Publication implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    public List<String> analizeMentions(){
+        List<String> mentionNames = new ArrayList<String>();
+        for (int i = 0; i < content.length(); i++)
+            if (content.charAt(i) == '@') {
+                int j = i + 1;
+                String mentionName = "";
+                while (content.charAt(j) != ' ') {
+                    mentionName += content.charAt(j);
+                    if (j == (content.length() - 1)) {
+                        break;
+                    }
+                    j++;
+                }
+                mentionNames.add(mentionName);
+            }
+        return  mentionNames;
+    }
+
+    public List<String> analizeTags(){
+        List<String> tagNames = new ArrayList<String>();
+        for (int i = 0; i < content.length(); i++)
+            if (content.charAt(i) == '#') {
+                int j = i + 1;
+                String tagName = "";
+                while (content.charAt(j) != ' ') {
+                    tagName += content.charAt(j);
+                    if (j == (content.length() - 1)) {
+                        break;
+                    }
+                    j++;
+                }
+                tagNames.add(tagName);
+            }
+        return  tagNames;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Publication publication = (Publication) o;
-        if (publication.getId() == null || getId() == null) {
-            return false;
-        }
+        if (publication.getId() == null || getId() == null) return false;
         return Objects.equals(getId(), publication.getId());
     }
 

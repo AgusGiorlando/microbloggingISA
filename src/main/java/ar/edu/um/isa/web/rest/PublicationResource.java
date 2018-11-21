@@ -1,9 +1,10 @@
 package ar.edu.um.isa.web.rest;
 
-import ar.edu.um.isa.domain.Publisher;
 import ar.edu.um.isa.domain.Tag;
+import ar.edu.um.isa.domain.User;
 import ar.edu.um.isa.repository.PublisherRepository;
 import ar.edu.um.isa.repository.TagRepository;
+import ar.edu.um.isa.repository.UserRepository;
 import com.codahale.metrics.annotation.Timed;
 import ar.edu.um.isa.domain.Publication;
 import ar.edu.um.isa.repository.PublicationRepository;
@@ -20,8 +21,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing Publication.
@@ -37,7 +39,11 @@ public class PublicationResource {
     private final PublicationRepository publicationRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private PublisherRepository publisherRepository;
+
     @Autowired
     private TagRepository tagRepository;
 
@@ -59,7 +65,41 @@ public class PublicationResource {
         if (publication.getId() != null) {
             throw new BadRequestAlertException("A new publication cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        List <String> mentions  = publication.analizeMentions();
+        if (!mentions.isEmpty()) {
+            Iterator<String> mentionsIt = mentions.iterator();
+            while (mentionsIt.hasNext()) {
+                User user = userRepository.findOneByLogin(mentionsIt.next()).orElse(null);
+                if (user != null) {
+                    log.debug("Mention found : {}", publication);
+                    publication.addMention(publisherRepository.findByUser_Id(user.getId()));
+                }
+            }
+        }
+
+        List<String> tags = publication.analizeTags();
+        if(!tags.isEmpty()){
+            Iterator<String> tagsIt = tags.iterator();
+            while (tagsIt.hasNext()){
+                String tagName = tagsIt.next();
+                Tag tag = tagRepository.findByName(tagName);
+                if (tag == null){
+                    Tag newtag = new Tag();
+                    newtag.setName(tagName);
+                    newtag.setLastUse(publication.getDate());
+                    tagRepository.save(newtag);
+                    log.debug("New tag found: {}", newtag);
+                }else {
+                    tag.setLastUse(publication.getDate());
+                    tagRepository.save(tag);
+                    log.debug("Tag updated: {}", tag);
+                }
+            }
+        }
+
         Publication result = publicationRepository.save(publication);
+
         return ResponseEntity.created(new URI("/api/publications/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

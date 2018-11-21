@@ -16,6 +16,10 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
+<<<<<<< HEAD
 
 List<Tag> findAllByLastUseIsAfter(LocalDate date);
+=======
+    Tag findByName(String name);
+>>>>>>> AGUS-Metodos
 }
