@@ -39,7 +39,7 @@ public class Publisher implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "follows_id", referencedColumnName = "id"))
     private Set<Publisher> follows = new HashSet<>();
 
-    @ManyToMany(mappedBy = "favedBies", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "favedBies" , fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Publication> favourites = new HashSet<>();
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,4 +118,23 @@ public class TagResource {
         tagRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+//Metodos Agregados
+    //Tag populares
+@GetMapping("/tag_popular/{dias}")
+@Timed
+public List<Tag> getTagPopular(@PathVariable int dias) {
+    log.debug("REST request to get Publication : {}");
+    Calendar fecha = Calendar.getInstance();
+
+    LocalDate fecha_actual = LocalDate.of(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.DAY_OF_MONTH));
+
+    fecha.add(Calendar.DAY_OF_YEAR, -dias);
+
+    LocalDate fecha_vieja=LocalDate.of(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.DAY_OF_MONTH));
+
+    List<Tag> tag = tagRepository.findAllByLastUseIsAfter(fecha_vieja);
+
+    return tag;
+
+}
 }
