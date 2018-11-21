@@ -1,5 +1,6 @@
 package ar.edu.um.isa.web.rest;
 
+import ar.edu.um.isa.domain.Publisher;
 import ar.edu.um.isa.domain.Tag;
 import ar.edu.um.isa.domain.User;
 import ar.edu.um.isa.repository.PublisherRepository;
